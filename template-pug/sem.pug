@@ -1,0 +1,49 @@
+mixin course(code, name, credits, grade)
+    tr
+        td(style="width: 20%")= code
+        td(style="width: 56%; text-align: left;")= name
+        td(style="width: 12%")= credits
+        td(style="width: 12%")= grade
+
+mixin courseTable(semCourse, semCredits, semGPA)
+    table.table.table-borderless
+        tr
+            td(style="width: 20%") Course No
+            td(style="width: 56%") Course Title
+            td(style="width: 12%") Credits
+            td(style="width: 12%") Grade
+
+        each c in semCourse
+            +course(c.code, c.en, c.credit, c.grade)
+
+    table.table.table-borderless
+        tr
+            td(style="width: 20%")
+            td(style="width: 56%; text-align: right;") Total Credits Earned:
+            td(style="width: 12%") #{semCredits}
+            td(style="width: 12%")
+        tr
+            td(style="width: 20%")
+            td(style="width: 56%; text-align: right;") Grade Point Average:
+            td(style="width: 12%") 
+            td(style="width: 12%") #{semGPA}
+
+mixin semCol(semN, semYear, record)
+    .row.justify-content-center
+        span.mt-3.mb-2(style="text-align: center;")
+            strong
+                if sem == 1
+                    u 1st Semester #{semYear}/#{semYear + 1}(Fall #{semYear})
+                else
+                    u 2nd Semester #{semYear}/#{semYear + 1}(Spring #{semYear})
+    
+    .row
+        +courseTable(record.semCourse, record.semCredits, record.semGPA)
+
+mixin semRow(sem1, sem2)
+    .row.mt-2
+        .col-6.pr-3.pl-3(style="border-width:1px;border-style:solid;border-color:#333333;")
+            +semCol(sem1.semN, sem1.semYear, sem1.record)
+        if sem2 != undefined
+            .col-6.pr-3.pl-3(style="border-width:1px;border-style:solid;border-color:#333333;border-left-style:none;")
+                +semCol(sem2.semN, sem2.semYear, sem2.record)

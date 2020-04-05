@@ -1,0 +1,40 @@
+doctype html
+html(lang="en")
+    head
+        meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+        link(rel="stylesheet", href="../bootstrap.min.css")
+        //- link(rel="stylesheet", href="file:///Users/petingo/Downloads/bootstrap.min.css")
+
+    body(style="width: 500px")
+        .card.m-3
+            h6.card-header 資料設定
+            .card-body
+                .row
+                    .col
+                        mixin inputBlock(id, displayName)
+                            .input-group.mb-3
+                                .input-group-prepend
+                                    .input-group-text= displayName
+                                input(id=id type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default")
+
+                        +inputBlock("studentId", "學號")
+                        +inputBlock("chName", "中文名")
+                        +inputBlock("enName", "英文名")
+                        +inputBlock("chMajor", "主修（中文）")
+                        +inputBlock("enMajor", "主修（英文）")
+                        +inputBlock("lastSem", "未進入歷年成績之學期")
+
+                .row.col.mt-2
+                    .form-check.form-check-inline
+                        input.form-check-input(type="radio" name="inlineRadioOptions" id="radioEn" value="英文")
+                        label.form-check-label(for="radioEn") 英文
+                    .form-check.form-check-inline
+                        input.form-check-input(type="radio" name="inlineRadioOptions" id="radioCh" value="中文")
+                        label.form-check-label(for="radioCh") 中文
+                .row.col.mt-3
+                    button.btn.btn-primary#btnSubmit(type="submit") 生成
+
+        script(src="./popup.js")
+        script(src="https://code.jquery.com/jquery-3.4.1.slim.min.js")
+        script(src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")
+        script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js")

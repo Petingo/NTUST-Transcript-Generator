@@ -1,0 +1,117 @@
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/66/NTUST-Emblem.png" style="opacity: 0.15;position: absolute;left: 50%;top: 50%;left: 50%;margin-left: -244px; margin-top: -250px;">
+<div class="container">
+    <div class="row justify-content-center">
+        <span class="h4">NATIONAL TAIWAN UNIVERSITY OF SCIENCE AND TECHNOLOGY</span><span class="h4">TRANSCRIPT OF ACADEMIC RECORD</span></div>
+    <div class="row justify-content-center">
+        <span>Reg. No.
+            {{ studentId }}</span>
+        <span class="ml-3">Name:
+            {{ enName }}</span>
+    </div>
+    <div class="row justify-content-center">
+        <span>Major:
+            {{ enMajor }}</span>
+        <span class="ml-3">Overall GPA:
+            {{ gradeInfo.overallGPA }}</span>
+    </div>
+
+    <div class="container pt-2 text-center" style="font-size: 12px">
+        {% macro course(code, en, credits, grade) %}
+            <tr>
+                <td style="width: 20%">{{ code }}</td>
+                <td style="width: 56%; text-align: left;">{{ en }}</td>
+                <td style="width: 12%">{{ credits }}</td>
+                <td style="width: 12%">{{ grade }}</td>
+            </tr>
+        {% endmacro %}
+
+        {% macro semester(semData, lastSemN, lastSem) %}
+            <div class="row justify-content-center">
+                <span class="mt-3 mb-2" style="text-align: center;">
+                    <strong>
+                        <u>
+                            {%set semYear = semData.semYear + 1911 %}
+                            {% if semData.semN == '1' or semData.semN == 1 %}
+                                1st Semester
+                                {{semYear}}/{{semYear + 1}}(Fall
+                                {{semYear}})
+                            {% else %}
+                                2nd Semester
+                                {{semYear}}/{{semYear + 1}}(Spring
+                                {{semYear}})
+                            {% endif %}
+                        </u>
+                    </strong>
+                </span>
+            </div>
+            <div class="row">
+                <table class="table table-borderless">
+                    <tr>
+                        <td style="width: 20%">Course No</td>
+                        <td style="width: 56%">Course Title</td>
+                        <td style="width: 12%">Credits</td>
+                        <td style="width: 12%">Grade</td>
+                    </tr>
+
+                    {% for c in semData.record.semCourse %}
+                        {{course(c.code, c.en, c.credits, c.grade)}}
+                    {% endfor %}
+                </table>
+                <table class="table table-borderless">
+                    <tr>
+                        <td style="width: 20%"></td>
+                        <td style="width: 56%; text-align: right;">Total Credits Earned:</td>
+                        <td style="width: 12%">{{ semData.record.semCredits }}</td>
+                        <td style="width: 12%"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%"></td>
+                        <td style="width: 56%; text-align: right;">Grade Point Average:</td>
+                        <td style="width: 12%"></td>
+                        <td style="width: 12%">{{  semData.record.semGPA  }}</td>
+                    </tr>
+                </table>
+            </div>
+            {% endmacro%}
+            {% macro semRow(semData1, semData2) %}
+                <div class="row mt-2">
+                    <div class="col-6 pr-3 pl-3" style="border-width:1px;border-style:solid;border-color:#333333;">
+                        {{ semester(semData1) }}
+                    </div>
+                    {% if semData2 != undefined %}
+                        <div class="col-6 pr-3 pl-3" style="border-width:1px;border-style:solid;border-color:#333333;border-left-style:none;">
+                            {{ semester(semData2) }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endmacro %}
+
+            {% set semNum = gradeInfo.semDataList.length %}
+            {% for i in range(0, semNum, 2)%}
+                {% if i + 1 >= semNum %}
+                    {{ semRow(gradeInfo.semDataList[i], undefined) }}
+                {% else %}
+                    {{ semRow(gradeInfo.semDataList[i], gradeInfo.semDataList[(i + 1)]) }}
+                {% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <style>
+        .table td,
+        .table th {
+            padding: 0;
+            background: transparent;
+        }
+    </style>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin-right: 3rem;
+            }
+        }
+    </style>
