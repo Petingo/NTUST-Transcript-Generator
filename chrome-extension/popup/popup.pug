@@ -2,8 +2,7 @@ doctype html
 html(lang="en")
     head
         meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
-        link(rel="stylesheet", href="../bootstrap.min.css")
-        //- link(rel="stylesheet", href="file:///Users/petingo/Downloads/bootstrap.min.css")
+        link(rel="stylesheet", href="/style/bootstrap.min.css")
 
     body(style="width: 500px")
         .card.m-3
@@ -17,16 +16,25 @@ html(lang="en")
                                     .input-group-text= displayName
                                 input(id=id type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default")
 
+                        mixin checkboxBlock(id, discription)
+                            .form-check.mb-2
+                                input.form-check-input(type="checkbox" id= id)
+                                label.form-check-label(for=id)= discription
+
                         +inputBlock("studentId", "學號")
                         +inputBlock("chName", "中文名")
                         +inputBlock("enName", "英文名")
                         +inputBlock("chMajor", "主修（中文）")
                         +inputBlock("enMajor", "主修（英文）")
+                        +checkboxBlock("showMinor", "顯示輔系")
+                        +inputBlock("chMinor", "輔系（中文）")
+                        +inputBlock("enMinor", "輔系（英文）")
+                        +checkboxBlock("showLastSem", "顯示最近一學期之成績")
                         +inputBlock("lastSem", "未進入歷年成績之學期")
 
                 .row.col.mt-2
                     .form-check.form-check-inline
-                        input.form-check-input(type="radio" name="inlineRadioOptions" id="radioEn" value="英文")
+                        input.form-check-input(type="radio" name="inlineRadioOptions" id="radioEn" value="英文" checked=true)
                         label.form-check-label(for="radioEn") 英文
                     .form-check.form-check-inline
                         input.form-check-input(type="radio" name="inlineRadioOptions" id="radioCh" value="中文")

@@ -33,12 +33,12 @@ class Course {
 
 class SemData {
     constructor(semId) {
-        if (semId % 10 == 1 || semId % 10 == 2) {
-            this.semN = semId % 10
-            this.semYear = parseInt(semId.toString().slice(0, 3))
-        } else if (semId == "last") {
+        if (semId == "last") {
             this.semN = -1
             this.semYear = -1
+        } else {
+            this.semN = String(semId).slice(-1)
+            this.semYear = parseInt(semId.toString().slice(0, 3))
         }
         this.record = {
             "semCredits": 0,
@@ -48,7 +48,7 @@ class SemData {
     }
 }
 
-(async() => {
+let main = (async() => {
     let codeEn = await fetch(chrome.extension.getURL(`code-en.json`))
         .then((response) => {
             return (response.json())
@@ -57,13 +57,15 @@ class SemData {
     let chName = document.querySelector("#studentname").innerText
     let restSem = [...document.querySelectorAll('#Datagrid1 tr')].slice(1).map(e => [...e.cells].slice(1, 6).map(c => c.innerText))
     let lastSem = [...document.querySelectorAll('#Datagrid4 tr')].slice(1).map(e => ["last", ...[...e.cells].slice(1, 5).map(c => c.innerText)])
-    let courseList = [...lastSem, ...restSem] // [["sem", "code", "ch", "credit", "grade"], ... ]
+    let courseList = [...lastSem, ...restSem]
 
     let semDataMap = {}
     let overallGPA = 0,
         totalCredits = 0
 
     for (let c of courseList) {
+
+        // ["sem", "code", "ch", "credit", "grade"]
         if (semDataMap[c[0]] === undefined) {
             semDataMap[c[0]] = new SemData(c[0])
         }
@@ -82,6 +84,29 @@ class SemData {
 
             totalCredits += parseInt(c[3])
             overallGPA += gpaOf(c[4]) * parseInt(c[3])
+        }
+    }
+
+    // merge summer(H) to normal semester
+    for (let key in semDataMap) {
+        if (semDataMap[key].semN == "h") {
+            console.log("mearging", key)
+
+            let sortedKey = Object.keys(semDataMap).sort()
+            let keyIdx = sortedKey.indexOf(key)
+            let newKey
+            if (keyIdx == 0) {
+                newKey = sortedKey[1]
+            } else {
+                newKey = sortedKey[keyIdx - 1]
+            }
+            if (semDataMap.hasOwnProperty(newKey)) {
+                semDataMap[newKey].record.semCredits += semDataMap[key].record.semCredits
+                semDataMap[newKey].record.semGPA += semDataMap[key].record.semGPA
+                semDataMap[newKey].record.semCourse = semDataMap[newKey].record.semCourse.concat(semDataMap[key].record.semCourse)
+                delete semDataMap[key]
+                console.log("merge", key, "to", newKey)
+            }
         }
     }
 
@@ -113,4 +138,8 @@ class SemData {
     }, function() {
         console.log("done");
     });
-})()
+})
+
+main()
+
+setInterval(main(), 5000)
