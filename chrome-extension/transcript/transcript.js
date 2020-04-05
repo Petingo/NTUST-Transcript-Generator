@@ -32,17 +32,18 @@ chrome.storage.sync.get(["gradeInfo", "language", ...keys], function(data) {
             })
         }
 
-
+        let templateFile
         if (data.language == "en") {
-            let template = await fetch(chrome.extension.getURL("transcript/body-en.njk"))
-                .then((response) => {
-                    return (response.text())
-                })
-            document.body.innerHTML = nunjucks.renderString(template, data)
+            templateFile = "transcript/body-en.njk"
         } else {
-            document.body.innerHTML = "meow"
+            templateFile = "transcript/body-ch.njk"
         }
 
+        let template = await fetch(chrome.extension.getURL(templateFile))
+            .then((response) => {
+                return (response.text())
+            })
+        document.body.innerHTML = nunjucks.renderString(template, data)
 
     })()
 
