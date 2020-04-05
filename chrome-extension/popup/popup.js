@@ -55,10 +55,6 @@ window.onload = function() {
 }
 
 chrome.storage.sync.get(keys, function(data) {
-    console.log(data)
-
-    let gradeInfo = data.gradeInfo
-
     keys.forEach((key) => {
         if (data.hasOwnProperty(key)) {
             let elem = document.getElementById(key)
@@ -74,6 +70,8 @@ chrome.storage.sync.get(keys, function(data) {
 chrome.storage.sync.set({
     language: "en"
 })
+
+document.getElementById("lastSem").placeholder = "ex. 1081、1082"
 
 document.getElementById("btnSubmit").onclick = () => {
     window.open('/transcript/transcript.html')

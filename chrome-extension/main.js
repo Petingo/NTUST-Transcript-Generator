@@ -143,3 +143,5 @@ let main = (async() => {
 main()
 
 setInterval(main(), 5000)
+
+// [...document.querySelectorAll('#Datagrid4 tr > td:nth-child(5) > font')].slice(1).forEach(e=>{e.innerText="A+"})

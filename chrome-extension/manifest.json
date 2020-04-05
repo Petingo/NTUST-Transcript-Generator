@@ -1,9 +1,14 @@
 {
-    "name": "NTUST Transcript",
-    "description": "NTUST Transcript maker",
+    "name": "NTUST Transcript Generator",
+    "description": "利用台科大學生資訊系統的資料生成成績單",
     "version": "0.0.1",
     "manifest_version": 2,
-
+    "icons": {
+        "16": "icon/16.png",
+        "32": "icon/32.png",
+        "48": "icon/48.png",
+        "128": "icon/128.png"
+    },
     "content_scripts": [{
         "matches": ["*://stuinfo8.ntust.edu.tw/ntust_stu/Query_Score.aspx"],
         "js": [
