@@ -2,6 +2,7 @@
 利用學生資訊系統的資料生成成績單的 chrome 插件，可以用在比較沒那麼正式的場合。
 
 ## chrome 商店連結
+還再審，點進去會是 404 qwq
 https://chrome.google.com/webstore/detail/ntust-transcript-generator/pncbegmmfhhlfjmbobiaklhjfffkapfm
 
 ## 使用說明
