@@ -3,6 +3,7 @@
 
 ## chrome 商店連結
 還再審，點進去會是 404 qwq
+
 https://chrome.google.com/webstore/detail/ntust-transcript-generator/pncbegmmfhhlfjmbobiaklhjfffkapfm
 
 ## 使用說明
