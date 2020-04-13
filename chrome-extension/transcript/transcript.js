@@ -11,7 +11,7 @@ const keys = [
     "lastSem"
 ]
 
-chrome.storage.sync.get(["gradeInfo", "language", ...keys], function(data) {
+chrome.storage.local.get(["gradeInfo", "language", ...keys], function(data) {
     // console.log(data)
     (async() => {
         if (data.showLastSem) {
@@ -34,16 +34,12 @@ chrome.storage.sync.get(["gradeInfo", "language", ...keys], function(data) {
 
         let templateFile
         if (data.language == "en") {
-            templateFile = "transcript/body-en.njk"
+            templateFile = "body-en.njk"
         } else {
-            templateFile = "transcript/body-ch.njk"
+            templateFile = "body-ch.njk"
         }
 
-        let template = await fetch(chrome.extension.getURL(templateFile))
-            .then((response) => {
-                return (response.text())
-            })
-        document.body.innerHTML = nunjucks.renderString(template, data)
+        document.body.innerHTML = nunjucks.render(templateFile, data)
 
     })()
 

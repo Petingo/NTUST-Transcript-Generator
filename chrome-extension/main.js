@@ -131,7 +131,7 @@ let main = (async() => {
 
     console.log(gradeInfo)
 
-    chrome.storage.sync.set({
+    chrome.storage.local.set({
         gradeInfo: gradeInfo,
         studentId: studentId,
         chName: chName,

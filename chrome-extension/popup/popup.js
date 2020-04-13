@@ -21,7 +21,7 @@ function addListener(id) {
                 break
         }
 
-        chrome.storage.sync.set(data, function() {
+        chrome.storage.local.set(data, function() {
             console.log("update " + JSON.stringify(data));
         })
     }
@@ -54,7 +54,7 @@ window.onload = function() {
     })
 }
 
-chrome.storage.sync.get(keys, function(data) {
+chrome.storage.local.get(keys, function(data) {
     keys.forEach((key) => {
         if (data.hasOwnProperty(key)) {
             let elem = document.getElementById(key)
@@ -67,7 +67,7 @@ chrome.storage.sync.get(keys, function(data) {
     })
 });
 
-chrome.storage.sync.set({
+chrome.storage.local.set({
     language: "en"
 })
 

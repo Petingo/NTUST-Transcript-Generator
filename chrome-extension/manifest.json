@@ -16,14 +16,13 @@
         ]
     }],
     "permissions": [
-        "storage",
-        "activeTab"
+        "storage"
     ],
     "web_accessible_resources": [
-        "*"
+        "code-en.json"
     ],
     "browser_action": {
         "default_popup": "popup/popup.html"
     },
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://code.jquery.com/jquery-3.4.1.slim.min.js https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js https://buttons.github.io/buttons.js; object-src 'self';"
+    "content_security_policy": "script-src 'self' https://code.jquery.com/jquery-3.4.1.slim.min.js https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js; object-src 'self';"
 }
