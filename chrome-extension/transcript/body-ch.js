@@ -5,7 +5,7 @@ var colno = 0;
 var output = "";
 try {
 var parentTemplate = null;
-output += "<img src=\"https://upload.wikimedia.org/wikipedia/commons/6/66/NTUST-Emblem.png\" style=\"opacity: 0.15;position: absolute;left: 50%;top: 50%;left: 50%;margin-left: -244px; margin-top: -250px;\">\n<div class=\"container\">\n    <div class=\"row justify-content-center\">\n        <span class=\"h4\">國立臺灣科技大學歷年成績表</span></div>\n    <div class=\"row justify-content-center\">\n        <span>學號：\n            ";
+output += "<img src=\"./NTUST-Emblem.png\" style=\"opacity: 0.15;position: absolute;left: 50%;top: 50%;left: 50%;margin-left: -244px; margin-top: -250px;\">\n<div class=\"container\">\n    <div class=\"row justify-content-center\">\n        <span class=\"h4\">國立臺灣科技大學歷年成績表</span></div>\n    <div class=\"row justify-content-center\">\n        <span>學號：\n            ";
 output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "studentId"), env.opts.autoescape);
 output += "</span>\n        <span class=\"ml-3\">姓名：\n            ";
 output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "chName"), env.opts.autoescape);
@@ -216,7 +216,7 @@ output += "\n                ";
 }
 }
 frame = frame.pop();
-output += "\n\n            </div>\n        </div>\n        <script src=\"https://code.jquery.com/jquery-3.4.1.slim.min.js\"></script>\n        <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\"></script>\n        <script src=\"https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js\"></script>\n        <style>\n            .table td,\n            .table th {\n                padding: 0;\n                background: transparent;\n            }\n        </style>\n        <style>\n            @media print {\n                @page {\n                    size: A4;\n                    margin-right: 3rem;\n                }\n            }\n        </style>";
+output += "\n\n            </div>\n        </div>\n        <style>\n            .table td,\n            .table th {\n                padding: 0;\n                background: transparent;\n            }\n        </style>\n        <style>\n            @media print {\n                @page {\n                    size: A4;\n                    margin-right: 3rem;\n                }\n            }\n        </style>";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {

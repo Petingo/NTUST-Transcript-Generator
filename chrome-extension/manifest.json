@@ -1,7 +1,7 @@
 {
     "name": "NTUST Transcript Generator",
     "description": "利用台科大學生資訊系統的資料生成成績單",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "manifest_version": 2,
     "icons": {
         "16": "icon/16.png",
@@ -23,6 +23,5 @@
     ],
     "browser_action": {
         "default_popup": "popup/popup.html"
-    },
-    "content_security_policy": "script-src 'self' https://code.jquery.com/jquery-3.4.1.slim.min.js https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js; object-src 'self';"
+    }
 }
