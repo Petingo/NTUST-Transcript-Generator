@@ -1,6 +1,5 @@
 function addListener(id) {
     let cb = (obj) => {
-        console.log(obj.target)
         let id = obj.target.id
         let data = {}
         switch (obj.target.type) {
@@ -21,9 +20,7 @@ function addListener(id) {
                 break
         }
 
-        chrome.storage.local.set(data, function() {
-            console.log("update " + JSON.stringify(data));
-        })
+        chrome.storage.local.set(data)
     }
 
     if (window.addEventListener) {

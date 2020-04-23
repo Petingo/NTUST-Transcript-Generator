@@ -21,6 +21,10 @@ function hasGrade(grade) {
     return gpaTable[grade] === undefined ? false : true
 }
 
+function round(n) {
+    return Math.round(n * 100) / 100
+}
+
 class Course {
     constructor(code, ch, en, credits, grade) {
         this.code = code
@@ -90,7 +94,6 @@ let main = (async() => {
     // merge summer(H) to normal semester
     for (let key in semDataMap) {
         if (semDataMap[key].semN == "h") {
-            console.log("mearging", key)
 
             let sortedKey = Object.keys(semDataMap).sort()
             let keyIdx = sortedKey.indexOf(key)
@@ -105,16 +108,15 @@ let main = (async() => {
                 semDataMap[newKey].record.semGPA += semDataMap[key].record.semGPA
                 semDataMap[newKey].record.semCourse = semDataMap[newKey].record.semCourse.concat(semDataMap[key].record.semCourse)
                 delete semDataMap[key]
-                console.log("merge", key, "to", newKey)
             }
         }
     }
 
     // calculate GPA
     for (let key in semDataMap) {
-        semDataMap[key].record.semGPA = (semDataMap[key].record.semGPA / semDataMap[key].record.semCredits).toFixed(2)
+        semDataMap[key].record.semGPA = round(semDataMap[key].record.semGPA / semDataMap[key].record.semCredits)
     }
-    overallGPA = (overallGPA / totalCredits).toFixed(2)
+    overallGPA = round(overallGPA / totalCredits)
 
     // sort semData and put into an Array
     const semDataList = [];
@@ -128,8 +130,6 @@ let main = (async() => {
         totalCredits: totalCredits,
         semDataList: semDataList
     }
-
-    console.log(gradeInfo)
 
     chrome.storage.local.set({
         gradeInfo: gradeInfo,
